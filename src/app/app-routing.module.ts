@@ -6,7 +6,8 @@ import { PasswordGeneratorComponent } from './password-generator/password-genera
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'password-generator', component: PasswordGeneratorComponent }
+  { path: 'password-generator', component: PasswordGeneratorComponent },
+  // { path: '**', redirectTo: '/home', },
 ];
 
 @NgModule({
