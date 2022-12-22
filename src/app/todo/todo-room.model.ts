@@ -7,13 +7,13 @@ export class TodoRoom {
   public roomHost: string;
   public createTime: number;
   public lastUpdate: number;
-  public roomMembers: string[] = []
+  public roomMembers: string[]
 
   public todo?: TodoTask[]
   public done?: TodoTask[]
 
 
-  constructor(roomName: string, roomHost: string, todo: TodoTask[] = [], done: TodoTask[] = [], roomId?: number) {
+  constructor(roomName: string, roomHost: string, todo: TodoTask[] = [], done: TodoTask[] = [], roomId?: number, roomMembers?: string[]) {
     this.roomName = roomName;
     this.roomHost = roomHost;
     let now = new Date();
@@ -22,6 +22,6 @@ export class TodoRoom {
     this.todo = todo
     this.done = done
     this.roomId = roomId ? roomId : Math.floor(Math.random() * 100000) + 1
-    this.roomMembers.push(roomHost)
+    this.roomMembers = roomMembers ? roomMembers : [roomHost]
   }
 }

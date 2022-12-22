@@ -18,10 +18,10 @@ export class TodoEditComponent implements OnInit {
 
   newRoom: boolean = false
   roomId: string
-  room: any
 
-  todo: TodoTask[]
-  done: TodoTask[]
+  room: any = null
+  todo: any[] = []
+  done: any[] = []
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +32,7 @@ export class TodoEditComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
 
+      const now = new Date()
       this.newRoom = params.get('id') === 'new';
 
       if (!this.newRoom) {
@@ -39,22 +40,27 @@ export class TodoEditComponent implements OnInit {
       } else {
         this.roomId = null
       }
-      console.log('room id:' + this.roomId)
-      if (this.roomId) {
-        this.room = this.todoService.getRoom(this.roomId)
-        if (this.room) {
-          this.todo = this.room.todo ? this.room.todo.slice() : []
-          this.done = this.room.done ? this.room.done.slice() : []
-        } else {
-          this.todo = []
-          this.done = []
-        }
+      this.room = this.todoService.getRoom(this.roomId)
 
-      } else {
+      if (this.room) {
+        this.todo = this.room.todo ? this.room.todo.slice() : []
+        this.done = this.room.done ? this.room.done.slice() : []
+
+        this.done = this.done.filter(item => {
+          const lastUpdate = new Date(item.lastUpdate)
+          var difference = now.getTime() - lastUpdate.getTime();
+          var dayDiff = Math.floor(difference / 1000 / 60 / 60 / 24);
+          var secondsDifference = Math.floor(difference / 1000);
+          return dayDiff < 3
+        })
+      }
+
+      if (this.newRoom) {
         this.room = null
         this.todo = []
         this.done = []
       }
+
     });
   }
 
@@ -79,7 +85,6 @@ export class TodoEditComponent implements OnInit {
   }
 
   saveToCloud() {
-
     if (this.newRoom) {
       const form = this.todoForm.form
       const roomName = form.value.roomName
@@ -88,7 +93,12 @@ export class TodoEditComponent implements OnInit {
       let room = new TodoRoom(roomName, this.authService.userData.email, this.todo, this.done)
       this.todoService.saveNewRoom(room)
     } else {
+      this.room.todo = this.todo
+      this.room.done = this.done
+      this.room.lastUpdate = new Date().getTime()
+      this.todoService.updateRoom(this.room)
 
     }
+    window.alert('save!')
   }
 }

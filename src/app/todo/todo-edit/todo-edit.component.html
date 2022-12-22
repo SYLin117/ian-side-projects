@@ -3,11 +3,12 @@
     <form #todoForm="ngForm">
       <div class="form-group" *ngIf="newRoom">
         <label for="RoomName">Room Name</label>
-        <input type="text" class="form-control" name="roomName" ngModel/>
+        <input type="text" class="form-control" name="roomName" ngModel />
       </div>
+      <h3 *ngIf="!newRoom">{{ room.roomName }}</h3>
       <div class="form-group">
         <label for="taskName">Task Name</label>
-        <input type="text" class="form-control" name="taskName" #taskName/>
+        <input type="text" class="form-control" name="taskName" #taskName />
         <br />
         <div class="btn-group" role="group" aria-label="Basic example">
           <button
@@ -17,7 +18,9 @@
           >
             Add New Task
           </button>
-          <button type="button" class="btn btn-success" (click)="saveToCloud()">Save</button>
+          <button type="button" class="btn btn-success" (click)="saveToCloud()">
+            Save
+          </button>
         </div>
       </div>
     </form>

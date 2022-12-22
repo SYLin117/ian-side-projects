@@ -41,7 +41,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Angular settings
-
-**/environment/*
+# deploy settings
+**/environments/
+.firebase/
+.firebaserc
+**/firebase.json
 
