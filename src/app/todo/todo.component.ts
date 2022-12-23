@@ -3,6 +3,7 @@ import { TodoService } from '../services/todo.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TodoRequest } from './todo-request.model';
+import { TodoRoom } from './todo-room.model';
 
 @Component({
   selector: 'app-todo',
@@ -59,12 +60,16 @@ export class TodoComponent implements OnInit {
     window.alert('request send')
   }
 
-  roomIsRequested(key: string) {
+  joinAvailable(room: TodoRoom) {
     const list = this.myrequests.filter(item => {
-      return item.requestRoom == key
+      return item.requestRoom == room.key
     })
-    return list.length > 0
+
+    const inRoom = room.roomMembers.includes(this.authService.userData.email)
+
+    return (!inRoom && list.length == 0)
   }
+
 
   allowRequest(index: number) {
     let request = this.requestList[index]

@@ -9,7 +9,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class SignUpComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  signup(email: string, pwd: string) {
+    this.authService.SignUp(email, pwd)
+      .then((result) => {
+        console.log(result)
+        window.alert('you have signed up ')
+      })
+  }
 }

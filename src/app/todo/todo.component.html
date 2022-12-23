@@ -91,7 +91,7 @@
             <button
               class="btn btn-success"
               (click)="requestJoin(room.key, room.roomHost, room.roomName)"
-              [disabled]="roomIsRequested(room.key)"
+              [disabled]="!joinAvailable(room)"
             >
               JOIN
             </button>

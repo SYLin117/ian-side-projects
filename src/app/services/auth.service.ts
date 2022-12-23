@@ -40,6 +40,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
+        console.log('user data: ' + JSON.stringify(result.user))
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
@@ -59,8 +60,12 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
+        result.user.sendEmailVerification().then(() => {
+          console.log('email sended')
+          this.SetUserData(result.user);
+          this.router.navigate(['/auth', 'verify-email-address']);
+        })
+
       })
       .catch((error) => {
         window.alert(error.message);
@@ -72,7 +77,8 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        console.log('email sended.')
+        this.router.navigate(['/auth', 'verify-email-address']);
       });
   }
 
@@ -103,9 +109,10 @@ export class AuthService {
 
   // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['/home']);
-    });
+    return this.AuthLogin(new auth.GoogleAuthProvider())
+      .then((res: any) => {
+        this.router.navigate(['/home']);
+      });
   }
 
   // Auth logic to run auth providers
@@ -145,7 +152,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['/auth', 'sign-in']);
     });
   }
 }

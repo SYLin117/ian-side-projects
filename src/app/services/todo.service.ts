@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TodoRoom } from '../todo/todo-room.model';
-import { filter, map, Observable, } from 'rxjs';
+import { map, Observable, } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AuthService } from './auth.service';
 import { TodoRequest } from '../todo/todo-request.model';
@@ -17,8 +17,8 @@ export class TodoService {
   private searchRooms: TodoRoom[]
 
   constructor(db: AngularFireDatabase, private authService: AuthService) {
-    this.todosRoomRef = db.list('/todos')
-    this.todosRequestRef = db.list('/todo-requests')
+    this.todosRoomRef = db.list('/todo/todos')
+    this.todosRequestRef = db.list('/todo/requests')
   }
 
   getRooms(): Observable<TodoRoom[]> {

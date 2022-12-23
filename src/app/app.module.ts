@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
+import { ChatService } from './services/chat.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

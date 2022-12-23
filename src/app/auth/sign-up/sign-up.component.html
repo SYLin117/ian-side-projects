@@ -13,15 +13,7 @@
       <input type="password" class="form-control" placeholder="Password" #userPwd required />
     </div>
 
-    <!-- 2 column grid layout for inline styling -->
-    <div class="row mb-4">
-      <div class="col">
-        <!-- Simple link -->
-        <a [routerLink]="['/auth', 'forgot-password']">Forgot password?</a>
-      </div>
-    </div>
-
-    <button class="btn btn-primary btn-block mb-4" (click)="authService.SignUp(userEmail.value, userPwd.value)">
+    <button type="button" class="btn btn-primary btn-block mb-4" (click)="signup(userEmail.value, userPwd.value)">
       Sign Up
     </button>
 
