@@ -2,7 +2,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { take, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { TodoRoom } from '../todo-room.model';
 import { TodoTask } from '../todo-task.model';
@@ -88,8 +87,6 @@ export class TodoEditComponent implements OnInit {
     if (this.newRoom) {
       const form = this.todoForm.form
       const roomName = form.value.roomName
-
-      console.log(this.authService.userData.email)
       let room = new TodoRoom(roomName, this.authService.userData.email, this.todo, this.done)
       this.todoService.saveNewRoom(room)
     } else {
@@ -97,7 +94,6 @@ export class TodoEditComponent implements OnInit {
       this.room.done = this.done
       this.room.lastUpdate = new Date().getTime()
       this.todoService.updateRoom(this.room)
-
     }
     window.alert('save!')
   }

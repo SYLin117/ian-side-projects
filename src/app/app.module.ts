@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
 import { ChatService } from './services/chat.service';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,11 @@ import { ChatService } from './services/chat.service';
 
     SharedModule,
     AuthModule,
-    TodoModule
+    TodoModule,
+    ChatModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
-    ChatService
   ],
   bootstrap: [AppComponent]
 })

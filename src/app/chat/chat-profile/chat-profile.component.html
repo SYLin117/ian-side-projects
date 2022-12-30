@@ -1,0 +1,51 @@
+<div class="row">
+  <h3 *ngIf="userData == null" >Create Your Language Exchange Profile</h3>
+  <h3 *ngIf="userData != null" >Edit Profile</h3>
+  <form [formGroup]="profileForm">
+    <!-- Email input -->
+    <div class="form-outline mb-4 row">
+      <label class="form-label" for="name">Name:</label>
+      <input id="name" type="text" class="form-control" placeholder="name" formControlName="name" />
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4 row">
+      <label class="form-label" for="age">Age:</label>
+      <input id="age" type="number" class="form-control" placeholder="age" formControlName="age" />
+    </div>
+
+    <div class="form-outline mb-4 row">
+      <label class="form-label" for="country">Country:</label>
+      <select id="country" class="form-control" formControlName="country">
+        <option *ngFor="let country of countries" [ngValue]="country.code">{{country.name}}</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="form-outline mb-4 col-6">
+        <label class="form-label" for="nativeLanguage">Native Languages:</label>
+        <select id="nativeLanguage" class="form-select" formControlName="nativeLanguage" multiple style="height: 150px;">
+          <option *ngFor="let lang of languages" [ngValue]="lang.name">
+            {{ lang.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-outline mb-4 col-6">
+        <label class="form-label" for="interestLanguage">Interest Languages:</label>
+        <select id="interestLanguage" class="form-select" formControlName="interestLanguage" multiple style="height: 150px;">
+          <option *ngFor="let lang of languages" [ngValue]="lang.code">
+            {{ lang.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="showAlert" #alertBanner class="alert alert-danger" role="alert">
+      All fields are required
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+
+  </form>
+</div>

@@ -7,6 +7,7 @@ import { TodoComponent } from './todo.component';
 import { TodoStartComponent } from './todo-start/todo-start.component';
 import { TodoEditComponent } from './todo-edit/todo-edit.component';
 import { AuthGuard } from '../guard/auth.guard';
+import { PipeModule } from '../pipe/shared.module';
 
 const todoRoutes: Route[] = [
   // { path: 'todo', component: TodoComponent, canActivate: [AuthGuard] }
@@ -30,7 +31,8 @@ const todoRoutes: Route[] = [
     RouterModule.forChild(todoRoutes),
     DragDropModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipeModule
   ]
 })
 export class TodoModule { }
