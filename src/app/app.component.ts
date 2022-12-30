@@ -9,7 +9,7 @@ import { ChatService } from './services/chat.service';
 })
 export class AppComponent implements OnInit {
   title = 'ian-side-projects';
-  constructor(private chatService: ChatService) { }
+  constructor() { }
   ngOnInit() {
 
   }

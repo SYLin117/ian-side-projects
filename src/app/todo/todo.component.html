@@ -3,28 +3,13 @@
     <div>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [ngClass]="{ active: mode === 'list' }"
-            (click)="changeMode('list')"
-            >My List</a
-          >
+          <a class="nav-link" [ngClass]="{ active: mode === 'list' }" (click)="changeMode('list')">My List</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [ngClass]="{ active: mode === 'search' }"
-            (click)="changeMode('search')"
-            >Search</a
-          >
+          <a class="nav-link" [ngClass]="{ active: mode === 'search' }" (click)="changeMode('search')">Search</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [ngClass]="{ active: mode === 'request' }"
-            (click)="changeMode('request')"
-            >Request</a
-          >
+          <a class="nav-link" [ngClass]="{ active: mode === 'request' }" (click)="changeMode('request')">Request</a>
         </li>
       </ul>
     </div>
@@ -36,63 +21,41 @@
       <br /><br />
 
       <ol class="list-group list-group-number">
-        <a
-          *ngFor="let room of roomList; let i = index"
-          class="list-group-item list-group-item-action d-flex gap-3 py-3"
-          aria-current="true"
-          [routerLinkActive]="['active']"
-          [routerLink]="[room.key]"
-        >
+        <a *ngFor="let room of roomList; let i = index" class="list-group-item list-group-item-action d-flex gap-3 py-3"
+          aria-current="true" [routerLinkActive]="['active']" [routerLink]="[room.key]">
           <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
               <h6 class="mb-0">{{ room.roomName }}</h6>
               <p class="mb-0 opacity-75">Host User: {{ room.roomHost }}</p>
             </div>
-            <small class="opacity-50 text-nowrap">{{
-              timeDifference(now, room.lastUpdate)
-            }}</small>
+            <small class="opacity-50 text-nowrap">{{room.lastUpdate | timePast}}</small>
           </div>
         </a>
       </ol>
     </div>
     <div *ngIf="mode === 'search'">
       <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="room id"
-          #roomIdInput
-        />
+        <input type="text" class="form-control" placeholder="room id" #roomIdInput />
         <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="searchRoom(roomIdInput.value)"
-          >
+          <button class="btn btn-outline-secondary" type="button" (click)="searchRoom(roomIdInput.value)">
             Search
           </button>
         </div>
       </div>
       <br /><br />
       <ol class="list-group list-group-number">
-        <a
-          *ngFor="let room of searchList; let i = index"
-          class="list-group-item list-group-item-action d-flex gap-3 py-3"
-          aria-current="true"
-        >
+        <a *ngFor="let room of searchList; let i = index"
+          class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
           <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
               <h6 class="mb-0">{{ room.roomName }}</h6>
               <p class="mb-0 opacity-75">Host User: {{ room.roomHost }}</p>
             </div>
             <small class="opacity-50 text-nowrap">{{
-              timeDifference(now, room.lastUpdate)
-            }}</small>
-            <button
-              class="btn btn-success"
-              (click)="requestJoin(room.key, room.roomHost, room.roomName)"
-              [disabled]="!joinAvailable(room)"
-            >
+              room.lastUpdate | timePast
+              }}</small>
+            <button class="btn btn-success" (click)="requestJoin(room.key, room.roomHost, room.roomName)"
+              [disabled]="!joinAvailable(room)">
               JOIN
             </button>
           </div>
@@ -101,11 +64,8 @@
     </div>
     <div *ngIf="mode === 'request'">
       <ol class="list-group list-group-number">
-        <a
-          *ngFor="let request of requestList; let i = index"
-          class="list-group-item list-group-item-action d-flex gap-3 py-3"
-          aria-current="true"
-        >
+        <a *ngFor="let request of requestList; let i = index"
+          class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
           <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
               <h6 class="mb-0">{{ request.roomname }}</h6>
@@ -114,8 +74,8 @@
               </p>
             </div>
             <small class="opacity-50 text-nowrap">{{
-              timeDifference(now, request.lastUpdate)
-            }}</small>
+              request.lastUpdate | timePast
+              }}</small>
             <button class="btn btn-success" *ngIf="!request.verify" (click)="allowRequest(i)">
               Allow
             </button>

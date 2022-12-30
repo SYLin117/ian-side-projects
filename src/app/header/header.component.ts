@@ -13,10 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logout(){
-    this.authService.Logout()
-    localStorage.setItem('user', null);
-    window.alert('you have logout!')
+  logout() {
+    this.authService.SignOut().then(() =>
+      window.alert('you have logout!')
+    )
   }
 
 }

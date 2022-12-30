@@ -40,7 +40,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log('user data: ' + JSON.stringify(result.user))
+        // console.log('user data: ' + JSON.stringify(result.user))
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {

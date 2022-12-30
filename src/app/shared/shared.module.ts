@@ -5,6 +5,7 @@ import { DropdownDirective } from './dropdown.directive';
 import { LoadingComponent } from './loading/loading.component';
 import { PlaceholderDirective } from './placeholder/placeholder.directive';
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -14,13 +15,15 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
         LoadingComponent,
         PlaceholderDirective,
         DropdownDirective,
-        CommonModule
+        CommonModule,
+
     ],
     declarations: [
         AlertComponent,
         LoadingComponent,
         PlaceholderDirective,
-        DropdownDirective
+        DropdownDirective,
+
     ],
     providers: [
 
